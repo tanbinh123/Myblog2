@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+    <script src="/assets/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/login.js"></script>
+    <title>资源登录页面</title>
+</head>
+<body>
+<div class="billboard" id="large-header">
+    <div class="caption" id="line-caption">
+        <div class="backimg"></div>
+        <div class="login">
+            <form th:action="@{/login}"  role="form" id="lg_form" method="post">
+                <div class="nav_tabs_title">
+
+                </div>
+                <label>
+                    <input type="text" name="username"  placeholder="用户名"/>
+                </label>
+                <label>
+                    <input type="password" name="password"  placeholder="密码"/>
+                </label>
+                    <label style="border: 0;text-align: left">
+                        <input type="checkbox" name="remember-me"  style="display:inline;width:20px" />记住我
+                    </label>
+                <button type="submit" class="btn submit_btn" id="submit_bt">登&nbsp;录</button>
+
+                <a href="" id="register_bt">没有账号，点击注册</a>
+
+            </form>
+            <div class=" col-md-5" th:if="${loginError}">
+                <p class="blog-label-error" th:text="${errorMsg}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

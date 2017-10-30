@@ -1,0 +1,113 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+.billboard {
+    width: 100%;
+    background: url('/images/login_bg.jpg') no-repeat center;
+    text-align: center;
+    background-size: cover;
+}
+
+.caption {
+    height: 435px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.backimg {
+    width: 540px;
+    height: 100%;
+    float: left;
+    background: url('/images/login_bg.jpg') no-repeat center;
+    background-size: 150% 150%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translate3d(0, -2px, 0);
+    -moz-transform: translate3d(0, -2px, 0);
+}
+
+.login {
+    width: 360px;
+    height: 100%;
+    float: right;
+    background-color: white;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translate3d(0, -2px, 0);
+    -moz-transform: translate3d(0, -2px, 0);
+}
+
+.nav_tabs_title {
+    margin: 54px 0 35px 0;
+}
+
+.nav_tabs_title a {
+    font-family: "微软雅黑";
+    font-size: 19px;
+    color: #5e5e5e;
+}
+
+.nav_tabs_title a:hover {
+    color: #5f84b1;
+    transition: all .2s linear;
+}
+
+.nav_tabs_title .a_click{
+    color: #5f84b1;
+}
+
+.nav_tabs_title .line {
+    border: 1px solid #cdcdcd;
+    margin: 0 28px 0 23px;
+}
+
+.login label{
+    width: 280px;
+    margin: 0 auto;
+    border:1px solid #e0e0e0;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.login input{
+    outline: none;
+    width: 250px;
+    display: block;
+    padding: 13px 15px;
+}
+.login .yzm{
+    width: 280px;
+    margin: 0 auto;
+}
+.login .yzm_input{
+    width: 190px;
+    float: left;
+}
+
+.login .code{
+    width: 160px;
+}
+
+.login .submit_btn{
+    width: 280px;
+    height: 41px;
+    cursor: pointer;
+    background-color: #5f84b1;
+    color: #fff;
+}
+
+.login #register_bt{
+    display: block;
+    bottom: 20px;
+    font-size: 12px;
+    color: #5f84b1;
+    position: absolute;
+    width: 100%;
+
+}
