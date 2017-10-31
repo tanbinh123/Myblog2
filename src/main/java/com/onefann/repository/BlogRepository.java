@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
 
 
     /**
-     * 查询博客部分字段（用于博客首页）
+     * 查询博客列表（部分字段）（用于博客首页）
      * @return
      */
     @Query("select new map(b.id as id,b.title as title,b.summary as summary,b.createTime as createTime,b.readSize as readSize,b.commentSize as commentSize,b.blogType as blogType,b.tags as tags) from Blog b")
@@ -46,6 +47,15 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
     @Modifying
     @Query("delete from Blog b where b.id in :ids")
     public void deleteByIds(@Param(value = "ids") List<Long> ids);
+
+    /**
+     * 根据日期查找博客
+     * @param date
+     * @param pageable
+     * @return
+     */
+    @Query("select new map(b.id as id,b.title as title,b.summary as summary,b.createTime as createTime,b.readSize as readSize,b.commentSize as commentSize,b.blogType as blogType,b.tags as tags) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1")
+    Page<Map<String, Object>> findByCreateTime(Date date,Pageable pageable);
 
 
 }

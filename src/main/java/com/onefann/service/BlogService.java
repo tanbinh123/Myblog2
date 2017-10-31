@@ -6,6 +6,7 @@ import com.onefann.vo.DateArchiveVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +15,12 @@ import java.util.Map;
  */
 public interface BlogService {
 
-    public Blog findById(Long id);
-    public Page<Blog> findAll(Pageable pageable);
-    public List<BlogTypeArchiveVo> blogTypeArchive();
-    public List<DateArchiveVo> dateArchive();
-    public Page<Map<String,Object>> listBlogData(Pageable pageable);
-    public void deleteBlogById(Long id);
-    public void save(Blog blog);
+    Blog findById(Long id);
+    Page<Blog> findAll(Pageable pageable);
+    List<BlogTypeArchiveVo> blogTypeArchive();
+    List<DateArchiveVo> dateArchive();
+    Page<Map<String,Object>> listBlogData(Pageable pageable);
+    void deleteBlogById(Long id);
+    void save(Blog blog);
+    Page<Map<String,Object>> listBlogDataByDate(String date,Pageable pageable);
 }

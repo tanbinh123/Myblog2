@@ -1,6 +1,7 @@
 package com.onefann.service.serviceImpl;
 
 import com.onefann.domain.Blog;
+import com.onefann.enums.ResultEnum;
 import com.onefann.exception.BlogException;
 import com.onefann.repository.BlogRepository;
 import com.onefann.service.BlogService;
@@ -12,7 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,15 +75,29 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Map<String, Object>> listBlogDataByDate(String date,Pageable pageable) {
+        if (date == null) {
+            throw new BlogException(ResultEnum.BLOG_PARAMS_ERROR.getMsg());
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        Date result = null;
+        try {
+            result  = simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new BlogException(ResultEnum.DATE_FORMAT_ERROR.getMsg());
+        }
+        Page<Map<String, Object>> page = blogRepository.findByCreateTime(result,pageable);
+        return page;
+    }
+
+    @Override
     public void save(Blog blog) {
         blogRepository.save(blog);
     }
 
     @Override
     public void deleteBlogById(Long id) {
-        if (id == null) {
-            throw new BlogException("博客参数错误");
-        }
         blogRepository.delete(id);
     }
 }
