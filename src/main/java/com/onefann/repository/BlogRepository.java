@@ -54,8 +54,10 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
      * @param pageable
      * @return
      */
-    @Query("select new map(b.id as id,b.title as title,b.summary as summary,b.createTime as createTime,b.readSize as readSize,b.commentSize as commentSize,b.blogType as blogType,b.tags as tags) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1")
-    Page<Map<String, Object>> findByCreateTime(Date date,Pageable pageable);
+    @Query(value = "select * from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1 \n-- #pageable\n",
+            countQuery = "select count(*) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1",
+            nativeQuery = true)
+    Page<Object[]> findByCreateTime(String date,Pageable pageable);
 
 
 }

@@ -75,19 +75,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Map<String, Object>> listBlogDataByDate(String date,Pageable pageable) {
+    public Page<Object[]> listBlogDataByDate(String date,Pageable pageable) {
         if (date == null) {
             throw new BlogException(ResultEnum.BLOG_PARAMS_ERROR.getMsg());
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
-        Date result = null;
-        try {
-            result  = simpleDateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            throw new BlogException(ResultEnum.DATE_FORMAT_ERROR.getMsg());
-        }
-        Page<Map<String, Object>> page = blogRepository.findByCreateTime(result,pageable);
+        Page<Object[]> page = blogRepository.findByCreateTime(date,pageable);
         return page;
     }
 
