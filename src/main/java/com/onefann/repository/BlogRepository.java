@@ -1,6 +1,7 @@
 package com.onefann.repository;
 
 import com.onefann.domain.Blog;
+import org.hibernate.annotations.ColumnTransformer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,7 +47,7 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
      */
     @Modifying
     @Query("delete from Blog b where b.id in :ids")
-    public void deleteByIds(@Param(value = "ids") List<Long> ids);
+    void deleteByIds(@Param(value = "ids") List<Long> ids);
 
     /**
      * 根据 年月 查找博客
@@ -54,10 +55,10 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
      * @param pageable
      * @return
      */
-    @Query(value = "select id,title,summary,create_time,read_size,comment_size,blog_type from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1 \n-- #pageable\n",
+
+    @Query(value = "select b.id,b.title,b.summary,b.create_time,b.read_size,b.comment_size,b.blog_type,b.tags from blog b where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1 \n-- #pageable\n",
             countQuery = "select count(*) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1",
             nativeQuery = true)
     Page<Object[]> findByCreateTime(String date,Pageable pageable);
-
 
 }

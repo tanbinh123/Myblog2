@@ -13,6 +13,7 @@ public enum ResultEnum {
     BLOG_PARAMS_ERROR(12,"博客参数错误"),
     DATE_FORMAT_ERROR(30,"日期格式化错误");
 
+
     ResultEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;

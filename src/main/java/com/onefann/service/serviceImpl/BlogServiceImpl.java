@@ -9,6 +9,7 @@ import com.onefann.vo.BlogTypeArchiveVo;
 import com.onefann.vo.DateArchiveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.stereotype.Service;
@@ -73,24 +74,27 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Object[]> listBlogDataByDate(String date,Pageable pageable) {
+    public Page<Map<String, Object>> listBlogDataByDate(String date,Pageable pageable) {
         if (date == null) {
             throw new BlogException(ResultEnum.BLOG_PARAMS_ERROR.getMsg());
         }
         //id,title,summary,create_time,read_size,comment_size,blog_type
-        Page<Object[]> page = blogRepository.findByCreateTime(date, pageable);
-        List<Object[]> objects = page.getContent();
-
-        Map<String, Object> map = null;
-        for (Object[] o : objects) {
+        Page<Object[]> list = blogRepository.findByCreateTime(date, pageable);
+        List<Map<String,Object>> maps = new ArrayList<>();
+        Map<String,Object> map = null;
+        for (Object[] o : list) {
             map = new HashMap<>();
-            map.put("id", o[0]);
-            map.put("summary", o[1]);
-            map.put("create_time", o[2]);
-            map.put("read_size", o[3]);
-            map.put("comment_size", o[4]);
-            map.put("blog_type", o[5]);
+            map.put("id",o[0]);
+            map.put("title",o[1]);
+            map.put("summary",o[2]);
+            map.put("create_time",o[3]);
+            map.put("read_size",o[4]);
+            map.put("comment_size",o[5]);
+            map.put("blog_type",o[6]);
+            map.put("tags",o[7]);
+            maps.add(map);
         }
+        Page<Map<String, Object>> page = new PageImpl(maps, pageable, list.getTotalElements());
         return page;
     }
 

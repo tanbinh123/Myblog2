@@ -22,5 +22,5 @@ public interface BlogService {
     Page<Map<String,Object>> listBlogData(Pageable pageable);
     void deleteBlogById(Long id);
     void save(Blog blog);
-    Page<Object[]> listBlogDataByDate(String date,Pageable pageable);
+    Page<Map<String, Object>> listBlogDataByDate(String date,Pageable pageable);
 }

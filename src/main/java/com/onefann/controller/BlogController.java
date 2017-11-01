@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,11 +48,17 @@ public class BlogController {
         return ResultVoUtil.success(map);
     }
 
+    @GetMapping("/list_by_date")
     public ResultVo listBlogByDate(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                   String date) {
-        Pageable pageable = new PageRequest(page-1,size,new Sort(Sort.Direction.DESC,"createTime"));
-        return null;
+                                   @RequestParam(value = "date",defaultValue = "") String date) {
+        Pageable pageable = new PageRequest(page-1,size,new Sort(Sort.Direction.DESC,"create_time"));
+        Page<Map<String, Object>> blogPage = blogService.listBlogDataByDate(date, pageable);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("currentPage", page);
+        resultMap.put("size", size);
+        resultMap.put("pageList", blogPage);
+        return ResultVoUtil.success(resultMap);
     }
 
     @GetMapping("/archive_type")
