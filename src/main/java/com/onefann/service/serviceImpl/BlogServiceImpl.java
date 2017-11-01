@@ -10,15 +10,13 @@ import com.onefann.vo.DateArchiveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by one_fann on 2017/10/25.
@@ -79,7 +77,20 @@ public class BlogServiceImpl implements BlogService {
         if (date == null) {
             throw new BlogException(ResultEnum.BLOG_PARAMS_ERROR.getMsg());
         }
-        Page<Object[]> page = blogRepository.findByCreateTime(date,pageable);
+        //id,title,summary,create_time,read_size,comment_size,blog_type
+        Page<Object[]> page = blogRepository.findByCreateTime(date, pageable);
+        List<Object[]> objects = page.getContent();
+
+        Map<String, Object> map = null;
+        for (Object[] o : objects) {
+            map = new HashMap<>();
+            map.put("id", o[0]);
+            map.put("summary", o[1]);
+            map.put("create_time", o[2]);
+            map.put("read_size", o[3]);
+            map.put("comment_size", o[4]);
+            map.put("blog_type", o[5]);
+        }
         return page;
     }
 

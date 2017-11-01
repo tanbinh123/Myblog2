@@ -49,12 +49,12 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
     public void deleteByIds(@Param(value = "ids") List<Long> ids);
 
     /**
-     * 根据日期查找博客
+     * 根据 年月 查找博客
      * @param date
      * @param pageable
      * @return
      */
-    @Query(value = "select * from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1 \n-- #pageable\n",
+    @Query(value = "select id,title,summary,create_time,read_size,comment_size,blog_type from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1 \n-- #pageable\n",
             countQuery = "select count(*) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1",
             nativeQuery = true)
     Page<Object[]> findByCreateTime(String date,Pageable pageable);

@@ -63,6 +63,7 @@ public class Blog {
     private Integer commentSize = 0;  // 评论量
 
     @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
+    @NotEmpty(message = "分类不能为空")
     @JoinColumn(name = "blogType")
     private BlogType blogType;
 

@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,11 @@ public class BlogController {
                              @RequestParam(value = "size",defaultValue = "10")Integer size) {
         Pageable pageable = new PageRequest(page-1,size,new Sort(Sort.Direction.DESC,"createTime"));
         Page<Map<String,Object>> pageList = blogService.listBlogData(pageable);
-        return ResultVoUtil.success(pageList);
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageList", pageList);
+        map.put("currentPage", page);
+        map.put("size", size);
+        return ResultVoUtil.success(map);
     }
 
     public ResultVo listBlogByDate(@RequestParam(value = "page", defaultValue = "1") Integer page,
