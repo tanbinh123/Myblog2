@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface BlogTypeService {
     List<BlogType> list();
+
+    void deleteBlogType(Integer id);
+
+    void saveBlogtype(BlogType blogType);
 }

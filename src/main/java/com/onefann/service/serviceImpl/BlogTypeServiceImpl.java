@@ -21,4 +21,14 @@ public class BlogTypeServiceImpl implements BlogTypeService {
     public List<BlogType> list() {
         return blogTypeRepository.findAll();
     }
+
+    @Override
+    public void deleteBlogType(Integer id) {
+        blogTypeRepository.delete(id);
+    }
+
+    @Override
+    public void saveBlogtype(BlogType blogType) {
+        blogTypeRepository.save(blogType);
+    }
 }

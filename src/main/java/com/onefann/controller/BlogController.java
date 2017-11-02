@@ -81,10 +81,10 @@ public class BlogController {
         try {
             blogService.deleteBlogById(id);
         } catch (BlogException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             return ResultVoUtil.error(ResultEnum.BLOG_DELTE_ERROR.getCode(), ResultEnum.BLOG_DELTE_ERROR.getMsg());
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             return ResultVoUtil.error(ResultEnum.ERROR.getCode(),ResultEnum.ERROR.getMsg());
         }
         return ResultVoUtil.success(ResultEnum.BLOG_DELETE_SUCCESS.getCode(),ResultEnum.BLOG_DELETE_SUCCESS.getMsg());
@@ -105,10 +105,10 @@ public class BlogController {
             BeanUtils.copyProperties(blogForm, blog);
             blogService.save(blog);
         } catch (BlogException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             return ResultVoUtil.error(e.getMessage());
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             return ResultVoUtil.error(e.getMessage());
         }
 
