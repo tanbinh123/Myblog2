@@ -7,11 +7,12 @@ import com.onefann.util.ResultVoUtil;
 import com.onefann.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class BlogTypeController {
         return ResultVoUtil.success(blogTypeList);
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete")
     public ResultVo delete(@RequestParam(value = "id",defaultValue = "") Integer id) {
         if (id == null) {
@@ -43,6 +45,21 @@ public class BlogTypeController {
             ResultVoUtil.error(ResultEnum.BLOGTYPE_DELETE_ERROR.getCode(),ResultEnum.BLOGTYPE_DELETE_ERROR.getMsg());
         }
         return ResultVoUtil.success(ResultEnum.BLOGTYPE_DELETE_SUCCESS.getCode(), ResultEnum.BLOGTYPE_DELETE_SUCCESS.getMsg());
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/save")
+    public ResultVo save(@Valid BlogType blogType, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ResultVoUtil.error(bindingResult.getFieldError().getDefaultMessage());
+        }
+        try {
+            blogTypeService.saveBlogtype(blogType);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            ResultVoUtil.error(ResultEnum.BlOGTYPE_SAVE_ERROR.getCode(), ResultEnum.BlOGTYPE_SAVE_ERROR.getMsg());
+        }
+        return ResultVoUtil.success(ResultEnum.BlOGTYPE_SAVE_SUCCESS.getCode(), ResultEnum.BlOGTYPE_SAVE_SUCCESS.getMsg());
     }
 
 }

@@ -13,6 +13,10 @@ public enum ResultEnum {
     BLOG_PARAMS_ERROR(13,"博客参数错误"),
     BLOGTYPE_DELETE_SUCCESS(14,"博客类别删除成功"),
     BLOGTYPE_DELETE_ERROR(15,"博客类别删除失败"),
+    BlOGTYPE_SAVE_SUCCESS(16,"博客类别保存成功"),
+    BlOGTYPE_SAVE_ERROR(17,"博客保存失败"),
+    USER_SAVE_ERROR(20, "用户保存失败"),
+    USER_SAVE_SUCCESS(21, "用户保存成功"),
     DATE_FORMAT_ERROR(30,"日期格式化错误");
 
 

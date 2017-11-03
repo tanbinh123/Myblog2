@@ -36,6 +36,14 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+    @GetMapping("/find")
+    public ResultVo find(Long id) {
+        if (id == null) {
+            ResultVoUtil.success(ResultEnum.BLOG_PARAMS_ERROR.getCode(), ResultEnum.BLOG_PARAMS_ERROR.getMsg());
+        }
+        Blog blog = blogService.findById(id);
+        return ResultVoUtil.success(blog);
+    }
     @GetMapping("/list")
     public ResultVo listBlog(@RequestParam(value = "page",defaultValue = "1")Integer page,
                              @RequestParam(value = "size",defaultValue = "10")Integer size) {

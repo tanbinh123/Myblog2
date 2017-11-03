@@ -17,7 +17,7 @@ public class BlogType {
 
     @NotEmpty(message = "分类名不能为空")
     @Size(min=2, max=50)
-    @Column(nullable = false, length = 50) // 映射为字段，值不能为空
+    @Column(unique = true,nullable = false, length = 50) // 映射为字段，值不能为空
     private String name;
 
     @Column(length = 50)
