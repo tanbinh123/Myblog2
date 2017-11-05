@@ -23,6 +23,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delteCommentById(Integer id) {
-
+        commentRepository.delete(id);
     }
 }

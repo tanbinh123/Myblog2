@@ -9,7 +9,10 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,14 +31,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    @GetMapping("/find")
+    @Secured("ROLE_ADMIN")
+    public ResultVo find() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResultVoUtil.success(user);
+    }
     @PostMapping("/save")
     @Secured("ROLE_ADMIN")
     public ResultVo save(@Valid User userForm) {
+
         User user = new User();
         if (userForm.getId() != null) {
             user = userService.findById(userForm.getId());
         }
-        BeanUtils.copyProperties(userForm,user);
+        BeanUtils.copyProperties(userForm, user);
         try {
             userService.save(user);
         } catch (Exception e) {

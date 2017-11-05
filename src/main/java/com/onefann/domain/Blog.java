@@ -69,6 +69,30 @@ public class Blog {
     @Column(name="tags", length = 100)
     private String tags;  // 标签
 
+
+    /**
+     * 添加评论
+     * @param comment
+     */
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        this.commentSize = this.comments.size();
+    }
+
+    /**
+     * 删除评论
+     * @param id
+     */
+    public void removeComment(Integer id) {
+        for (Comment comment : comments) {
+            if (comment.getId() == id) {
+                comments.remove(comment);
+                break;
+            }
+        }
+        commentSize = comments.size();
+    }
+
     public Long getId() {
         return id;
     }

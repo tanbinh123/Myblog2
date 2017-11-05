@@ -10,14 +10,18 @@ public enum ResultEnum {
     BLOG_SAVE_SUCCESS(10,"博客保存成功") ,
     BLOG_DELTE_ERROR(11,"博客删除失败"),
     BLOG_DELETE_SUCCESS(12,"博客删除成功"),
-    BLOG_PARAMS_ERROR(13,"博客参数错误"),
+    BLOG_PARAMS_ERROR(13,"参数错误"),
     BLOGTYPE_DELETE_SUCCESS(14,"博客类别删除成功"),
     BLOGTYPE_DELETE_ERROR(15,"博客类别删除失败"),
     BlOGTYPE_SAVE_SUCCESS(16,"博客类别保存成功"),
     BlOGTYPE_SAVE_ERROR(17,"博客保存失败"),
     USER_SAVE_ERROR(20, "用户保存失败"),
     USER_SAVE_SUCCESS(21, "用户保存成功"),
-    DATE_FORMAT_ERROR(30,"日期格式化错误");
+    COMMENT_SAVE_SUCCESS(30,"评论保存成功"),
+    COMMENT_SAVE_ERROR(31,"评论保存失败"),
+    COMMENT_DELETE_SUCCESS(32, "评论删除成功"),
+    COMMENT_DELETE_ERROR(33, "评论删除失败"),
+    ;
 
 
     ResultEnum(Integer code, String msg) {

@@ -4,8 +4,98 @@
 <head>
     <meta charset="UTF-8"/>
     <title>首页</title>
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/jquery.bootpag.min.js"></script>
+    <link  rel="stylesheet" href="css/index.css"  />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </head>
-<body>
-6666666666666
+<body style="background-color:#f7f7f7">
+
+<nav class="navbar navbar-inverse">
+    <a class="navbar-brand" href="#">Navbar</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-12 col-md-9">
+            <div class="jumbotron">
+                <h1 style="color: white">Hello, world!</h1>
+                <p  style="color: white">This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            </div>
+            <div class="row">
+                <div id="content"></div>
+            </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-6 col-md-3">
+            <div class="panel panel-default panel-profile m-b-0">
+                <div class="panel-heading" style="background-image: url(//cdn.shopify.com/s/files/1/0691/5403/t/141/assets/insta-2.jpg?11994684489640104719);"></div>
+                <div class="panel-body text-center">
+                    <img class="panel-profile-img" src="//cdn.shopify.com/s/files/1/0691/5403/t/141/assets/avatar-fat.jpg?11994684489640104719" />
+                    <h5 class="panel-title">Jacob Thornton</h5>
+                    <p class="m-b">Creator of Bootstrap, engineer at Twitter &amp; Medium. Founder of Bumpers.</p>
+                    <a href="//github.com/fat" target="_blank" class="btn btn-primary-outline btn-sm m-b">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 sidebar-offcanvas pull-right" id="sidebar">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">日期归档</a>
+                <div id="date_archiving">
+                </div>
+            </div>
+        </div><!--/span-->
+
+        <div class="col-6 col-md-3 sidebar-offcanvas pull-right" id="sidebar2">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">类别归档</a>
+                <div id="type_archiving">
+                </div>
+            </div>
+        </div><!--/span-->
+
+    </div><!--/row-->
+    <p id="pagination"></p>
+    <hr />
+
+</main><!--/.container-->
+
+<footer>
+    <p style="text-align: center">&copy; Company 2017</p>
+</footer>
+
 </body>
+<script id="articleTemp" type="text/html">
+    <li class="article">
+        <div class="article-head">
+            <h1><a class="article-link" href="${pageContext.request.contextPath }/index/indexArticleContentAction!getData.action?id={{id}}">{{title}}</a></h1>
+                            <span class="article-meta"> <time class="post-date" datetime="">{{createTime}}</time>
+                            <span class="article-author">{{nickName}}</span> </span>
+        </div>
+        <div class="article-content">
+            {{summary}}
+            <a href="${pageContext.request.contextPath }/index/indexArticleContentAction!getData.action?id={{id}}" class="readmore">Read more »</a>
+        </div>
+    </li>
+</script>
+<script id="dateArchiveTemp" type="text/html">
+    <a href="#" class="list-group-item"><span class="badge">{{count}}</span>{{date}}</a>
+</script>
+<script id="typeArchiveTemp" type="text/html">
+    <a href="#" class="list-group-item"><span class="badge">{{count}}</span>{{blogTypeName}}</a>
+</script>
 </html>

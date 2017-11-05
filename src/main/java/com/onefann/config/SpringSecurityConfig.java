@@ -26,7 +26,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userService);
-        daoAuthenticationProvider.setPasswordEncoder(new Md5PasswordEncoder());
+   //     daoAuthenticationProvider.setPasswordEncoder(new Md5PasswordEncoder());
         return daoAuthenticationProvider;
     }
 

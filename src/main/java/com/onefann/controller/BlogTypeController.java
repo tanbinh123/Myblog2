@@ -51,13 +51,13 @@ public class BlogTypeController {
     @PostMapping("/save")
     public ResultVo save(@Valid BlogType blogType, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            ResultVoUtil.error(bindingResult.getFieldError().getDefaultMessage());
+           return ResultVoUtil.error(bindingResult.getFieldError().getDefaultMessage());
         }
         try {
             blogTypeService.saveBlogtype(blogType);
         } catch (Exception e) {
             log.error(e.getMessage());
-            ResultVoUtil.error(ResultEnum.BlOGTYPE_SAVE_ERROR.getCode(), ResultEnum.BlOGTYPE_SAVE_ERROR.getMsg());
+            return ResultVoUtil.error(ResultEnum.BlOGTYPE_SAVE_ERROR.getCode(), ResultEnum.BlOGTYPE_SAVE_ERROR.getMsg());
         }
         return ResultVoUtil.success(ResultEnum.BlOGTYPE_SAVE_SUCCESS.getCode(), ResultEnum.BlOGTYPE_SAVE_SUCCESS.getMsg());
     }

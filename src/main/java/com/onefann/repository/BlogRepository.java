@@ -1,6 +1,7 @@
 package com.onefann.repository;
 
 import com.onefann.domain.Blog;
+import com.onefann.domain.Comment;
 import org.hibernate.annotations.ColumnTransformer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,5 +61,6 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
             countQuery = "select count(*) from blog where DATE_FORMAT(create_time,\"%Y年%m月\") =  ?1",
             nativeQuery = true)
     Page<Object[]> findByCreateTime(String date,Pageable pageable);
+
 
 }
