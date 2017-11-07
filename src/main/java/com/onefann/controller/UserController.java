@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -31,8 +33,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    /**
+     * 返回用户的信息给首页
+     * @return
+     */
     @GetMapping("/find")
+    public ResultVo findUser() {
+        User user =userService.find();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", user.getId());
+        map.put("avatar", user.getAvatar());
+        map.put("nickname", user.getNickname());
+        map.put("profile", user.getProfile());
+        return ResultVoUtil.success(map);
+    }
+
+    /**
+     * 返回用户全部信息给管理首页
+     * @return
+     */
+    @GetMapping("/admin/find")
     @Secured("ROLE_ADMIN")
     public ResultVo find() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

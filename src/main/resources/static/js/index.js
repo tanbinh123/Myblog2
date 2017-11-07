@@ -63,7 +63,7 @@ $(document).ready(function() {
             }
         });
     });
-
+//博客日期归档
     $.ajax({
         url: "blog/archive_date",
         method: "GET",
@@ -79,7 +79,7 @@ $(document).ready(function() {
             });
         }
     });
-
+//博客类别归档
     $.ajax({
         url: "blog/archive_type",
         method: "GET",
@@ -93,6 +93,19 @@ $(document).ready(function() {
                 $li = $(template("typeArchiveTemp", obj));
                 $li.appendTo($('#type_archiving'));
             });
+        }
+    });
+
+//个人信息初始化
+    $.ajax({
+        url: "user/find",
+        method: "GET",
+        async: true,
+        dataType: "json",
+        success: function (data) {
+            $(".panel-profile-img").attr('src',data.data.avatar);
+            $(".panel-title").html(data.data.nickname);
+            $(".m-b").html(data.data.profile);
         }
     });
 });

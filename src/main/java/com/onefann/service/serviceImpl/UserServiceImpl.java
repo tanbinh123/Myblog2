@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by one_fann on 2017/10/20.
  */
@@ -38,5 +40,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         return userRepositoty.findOne(id);
+    }
+
+    @Override
+    public User find() {
+        List<User> users = userRepositoty.findAll();
+        User result = users.get(0);
+        User user = new User();
+        user.setId(result.getId());
+        user.setAvatar(result.getAvatar());
+        user.setUsername(result.getUsername());
+        user.setProfile(result.getProfile());
+        user.setNickname(result.getNickname());
+        return user;
     }
 }

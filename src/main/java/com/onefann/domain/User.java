@@ -1,5 +1,6 @@
 package com.onefann.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by one_fann on 2017/10/19.
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Entity
 public class User implements UserDetails, Serializable {
     public User() {
