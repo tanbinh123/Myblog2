@@ -8,7 +8,6 @@
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -42,6 +41,19 @@
 		<script src="/assets/js/html5shiv.min.js"></script>
 		<script src="/assets/js/respond.min.js"></script>
 		<![endif]-->
+		<!-- 百度文本编辑器 -->
+		<link href="/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="/umeditor/third-party/jquery.min.js"></script>
+		<script type="text/javascript" src="/umeditor/third-party/template.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/umeditor/umeditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/umeditor/umeditor.min.js"></script>
+		<script type="text/javascript" src="/umeditor/lang/zh-cn/zh-cn.js"></script>
+		<!-- 实例化编辑器代码 -->
+		<script type="text/javascript">
+			$(function(){
+				window.um = UM.getEditor('container');
+			});
+		</script>
 	</head>
 
 	<body class="no-skin">
@@ -150,7 +162,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="">
+					<li class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text">
@@ -164,7 +176,7 @@
 
 						<ul class="submenu">
 							<li class="">
-								<a th:href="@{/admin/write_blog}">
+								<a href="#" class="active">
 									<i class="menu-icon fa fa-caret-right"></i>
 									写博客
 								</a>
@@ -235,7 +247,50 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label class="col-sm-1 control-label no-padding-right" >标题</label>
+											<div class="col-sm-9">
+												<input type="text" id="title" placeholder="Username" class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-xs-12 col-sm-1 no-padding-right">分类</label>
+											<div class="col-xs-12 col-sm-9">
+												<select id="blogTypeId">
+													<option th:value="*{type.id}" th:text="*{type.name}" th:each="type : ${typesModel.types}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-1 control-label no-padding-right" for="form-field-tags">标签</label>
+											<div class="col-sm-9">
+												<div class="inline">
+													<input type="text" name="tags" id="form-field-tags" value="Tag Input Control" placeholder="Enter tags ..." />
+												</div>
+											</div>
+										</div>
+										<!-- 加载编辑器的容器 -->
+										<div style="margin-bottom:20px;">
+											<script id="container" name="content" type="text/plain" style="width:100%;height:200px">
 
+											</script>
+										</div>
+										<div class="clearfix form-actions">
+											<div class="col-md-offset-3 col-md-9">
+												<button id="submitData" class="btn btn-info" type="button">
+													<i class="ace-icon fa fa-check bigger-110"></i>
+													Submit
+												</button>
+
+												&nbsp; &nbsp; &nbsp;
+												<button class="btn" type="reset">
+													<i class="ace-icon fa fa-undo bigger-110"></i>
+													Reset
+												</button>
+											</div>
+										</div>
+									</form>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -273,24 +328,24 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
+		<script src="/assets/js/jquery-1.11.3.min.js"></script>
 
 		<!-- basic scripts -->
 
 		<!--[if !IE]> -->
-		<script src="/assets/js/jquery-2.1.4.min.js"></script>
-
 		<!-- <![endif]-->
 
 		<!--[if IE]>
-<script src="/assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<![CDATA['<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>']]>");
 		</script>
-		<script src="/assets/js/bootstrap.min.js"></script>
+
 
 		<!-- page specific plugin scripts -->
-
+		<script src="/assets/js/bootstrap-tag.min.js"></script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+		<script src="/js/write_blog.js"></script>
 		<!-- ace scripts -->
 		<script src="/assets/js/ace-elements.min.js"></script>
 		<script src="/assets/js/ace.min.js"></script>
