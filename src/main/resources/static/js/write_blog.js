@@ -41,33 +41,64 @@ $(function(){
 
 
 $(function(){
+
     $("#submitData").click(function(){
         var title = $("#title").val();
         var blogTypeId = $("#blogTypeId").val();
-        var content = UM.getEditor('container').getContent();
+        var htmlContent = UM.getEditor('container').getContent();
         var tags = $("#form-field-tags").val();
-        console.info("tags:"+tags);
         if (title == null || title == '') {
-            $.messager.alert('提示', "请输入标题！");
+            $("#msg").text('博客标题不能为空！');
+            $( "#dialog-message").dialog( "open" );
         } else if (blogTypeId == null || blogTypeId == '') {
-            $.messager.alert('提示', "请选择博客类别！");
-        } else if (content == null || content == '') {
-            $.messager.alert('提示', "请输入内容！");
+            $("#msg").text('请选择博客类别！');
+            $( "#dialog-message").dialog( "open" );
+        } else if (htmlContent == null || htmlContent == '') {
+            $("#msg").text('请输入内容！');
+            $( "#dialog-message").dialog( "open" );
+
         } else {
-            $.post(
-                    "${pageContext.request.contextPath}/admin/BlogAction!save.action",
+            $.post("/blog/save",
                     {
                         'title' : title,
-                        'typeId' : blogTypeId,
-                        'content' : content,
-                            'contentNoTag' : UM.getEditor('container')
+                        'blogType' : blogTypeId,
+                        'htmlContent' : htmlContent,
+                        'content' : UM.getEditor('container')
                             .getContentTxt(),
                         'summary' : UM.getEditor('container')
                             .getContentTxt().substr(0, 155),
                         'tags' : tags
                     }, function(result) {
-                        $.messager.alert('提示', result.msg);
+                    $("#msg").text(result.msg);
+                    $( "#dialog-message").dialog( "open" );
                     }, "json");
         }
     })
+});
+
+$(function(){
+    $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+        _title: function(title) {
+            var $title = this.options.title || '&nbsp;'
+            if( ("title_html" in this.options) && this.options.title_html == true )
+                title.html($title);
+            else title.text($title);
+        }
+    }));
+    $( "#dialog-message" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        title: "<div class='widget-header widget-header-small'><h4 class='smaller'>提示</h4></div>",
+        title_html: true,
+        buttons: [
+            {
+                text: "确定",
+                "class" : "btn btn-primary btn-minier",
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        ]
+    });
 })
